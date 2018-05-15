@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Course LMS</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color:black">
+                    <a class="nav-link" href="courselist.html" >Courses List </a><br/>
+                    <a class="nav-link" href="studentlist.html" >Student List</a><br/>
+                    <a class="nav-link" href="subjectlist.html" >Subject List</a><br/>
+                    <a class="nav-link" href="teacherslist.html" >Teacher List</a><br/>
+            </nav>
+        <center>
+        <button v-on:click="seeall" style="background-color:lightblue">List All Subjects</button>
+    </center>
+    <BR/>
+    <center>
+            <button onclick="location.href='http://localhost:2000/subjects.html';" style="background-color:lightblue">Add a new Subject</button>
+        </center>
+        <ul>
+               <li v-for="course in Courses">
+                {{course.name}}
+            </li>
+    
+    </div>
+
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                Courses:[]
+            },
+            mounted(){
+                this.seeall();
+            },
+            
+
+            methods: {
+                seeall: function() {
+                axios.get("http://localhost:2000/api/subjects", { responseType: 'json' })
+                    .then(response => { this.Courses = response.data })
+                   // console.log("----"+this.courses);
+                }
+                
+            }
+        })
+    </script>
+</body>
+
+</html>

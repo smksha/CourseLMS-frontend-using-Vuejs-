@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Batch</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color:black">
+                    <a class="nav-link" href="index.html" >Courses List </a><br/>
+                    <a class="nav-link" href="students.html" >Student List</a><br/>
+                    <a class="nav-link" href="subjectlist.html" >Subject List</a><br/>
+                    <a class="nav-link" href="teacherslist.html" >Teacher List</a><br/>
+            </nav>
+        <center>
+        <button v-on:click="seeall" style="background-color:lightblue">List All teacher</button>
+    </center>
+    <br/>
+    <center>
+            <button onclick="location.href='http://localhost:2000/teachers.html';" style="background-color:lightblue">Add a new Teacher</button>
+        </center>
+        <ul>
+               <li v-for="teacher in Teachers">
+                {{teacher.name}}
+            </li>
+            <!-- <li v-for="teacher in Teachers">
+                    {{teacher.Subject.name}}
+                </li> -->
+            </ul>
+    
+    </div>
+
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                Teachers:[]
+                
+            },
+            mounted(){
+                this.seeall();
+            },
+            
+
+            methods: {
+                seeall: function() {
+                axios.get("http://localhost:2000/api/teachers", { responseType: 'json' })
+                    .then(response => { this.Teachers = response.data })
+                   // console.log("----"+this.courses);
+                }
+                
+            }
+        })
+    </script>
+</body>
+
+</html>

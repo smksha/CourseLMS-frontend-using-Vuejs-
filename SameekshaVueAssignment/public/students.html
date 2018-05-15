@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Course LMS</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="background-color:black">
+                    <a class="nav-link" href="courselist.html" >Courses List </a><br/>
+                    <a class="nav-link" href="studentslist.html" >Student List</a><br/>
+                    <a class="nav-link" href="subjectlist.html" >Subject List</a><br/>
+                    <a class="nav-link" href="teacherslist.html" >Teacher List</a><br/>
+            </nav>
+        <center>
+        <h4>Student's Name</h4>
+        <input type="text" v-model='newStuName'>
+        <h4>Batch</h4>
+        <select class="selectpicker show-menu-arrow " v-model="newStuBatch" title="Select Batch">
+            <option v-bind:value="Batch.id" v-for="Batch in Batches">{{batch.name}}</option>
+        </select>
+    </br>
+    
+    </br>
+        <button v-on:click="add" style="background-color:lightblue">Enroll</button>
+    </center>
+    </div>
+
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                Batches:[],
+                newStuName:'',
+                newStuBatch:''
+            },
+            mounted(){
+                this.StudentData();
+            },
+            
+
+            methods: {
+                StudentData: function() {
+                axios.get("http://localhost:2000/api/batches", { responseType: 'json' })
+                    .then(response => { this.Batches = response.data })
+                   // console.log("----"+this.courses);
+                },
+                add : function () {
+                    //console.log("Method Clicked")
+                    axios.post("http://localhost:2000/api/students", {
+                         name: this.newStuName, 
+                         BatchId:this.newStuBatch,
+                          })
+                    .then((response)=>{
+                        console.log('Student Added Successfully')
+                    }); 
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

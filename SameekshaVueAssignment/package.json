@@ -1,0 +1,20 @@
+{
+  "name": "webevaluationday1",
+  "version": "1.0.0",
+  "description": "Web Evaluation Day 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sakshi Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "materialize-css": "^1.0.0-rc.1",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.7",
+    "sqlite": "^2.9.1",
+    "sqlite3": "^4.0.0",
+    "vue": "^2.5.16"
+  }
+}
